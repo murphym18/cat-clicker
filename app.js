@@ -28,39 +28,112 @@ $(function(){
     },
 
     select: function(id) {
-      function updateSelected(cat) {
+      var index = -1;
+      function updateSelected(cat, i) {
         cat.selected = String(id) === String(cat.id);
+        index = cat.selected ? (i | 0) : index;
       }
       models.forEach(updateSelected);
+      this.currentIndex = index | 0;
       this.updateViews();
     },
 
-    findSelectedIndex: function() {
-      return models.map(function(cat) { return cat.selected; }).indexOf(true);
-    },
-
     getSelected: function() {
-      return models[this.findSelectedIndex()];
+      return models[this.currentIndex | 0];
     },
 
     incrementSelected: function() {
-      var i = this.findSelectedIndex();
+      var i = this.currentIndex | 0;
       var count = models[i].count = models[i].count + 1;
+
+      views.adminView.reset();
       return count;
+    },
+
+    updateCurrent(obj) {
+      var cat = models[this.currentIndex | 0]
+      for (var k in obj) {
+        cat[k] = obj[k];
+      }
+      this.updateViews()
+
+
     },
 
     updateViews: function() {
       views.forEach(function(view){
         view.render();
       });
+      views.adminView.reset();
+    },
+
+    showAdminView: function() {
+      views.adminView.showAdminView();
     }
   };
 
   var views = (function(){
-    return [
+    var result = [
       new ListView(),
       new CatView()
     ];
+    result.adminView = new AdminView();
+    return result;
+
+    function AdminView() {
+      this.el = window.document.getElementById('admin')
+      this.name = window.document.getElementById('cat-name');
+      this.image = window.document.getElementById('cat-image');
+      this.count = window.document.getElementById('cat-count');
+      this.showButton = window.document.getElementById('adminbutton');
+      this.saveButton = window.document.getElementById('saveButton');
+      this.cancelButton = window.document.getElementById('cancelButton');
+      this.adminForm = window.document.getElementById('adminform');
+      console.log(this.adminForm)
+      this.isVisible = false;
+
+      this.showButton.addEventListener('click', (function(e){
+        this.toggleVisibility();
+      }).bind(this))
+      this.saveButton.addEventListener('click', (function(e){
+        this.save();
+        e.preventDefault();
+      }).bind(this))
+      this.adminForm.addEventListener('submit', (function(e){
+        this.save();
+        e.preventDefault()
+      }).bind(this))
+      this.cancelButton.addEventListener('click', (function(e){
+        this.isVisible = true;
+        this.toggleVisibility();
+        this.reset();
+
+      }).bind(this))
+
+      this.toggleVisibility = function() {
+        var className = this.isVisible ? '' : 'active';
+        this.isVisible = !this.isVisible;
+        this.reset();
+        this.el.setAttribute('class', className);
+      }
+      this.reset = function() {
+        var cat = octopus.getSelected();
+        this.name.value = (cat.name || "");
+        this.image.value = (cat.image || "");
+        this.count.value = (cat.count || 0);
+      }
+      this.save = function() {
+
+        var obj = {}
+        obj.name = this.name.value
+        obj.image = this.image.value
+        obj.count = this.count.value
+
+        this.isVisible = true;
+        this.toggleVisibility();
+        octopus.updateCurrent(obj)
+      }
+    }
 
     function ListView() {
       this.$el = $('#list');
