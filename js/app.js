@@ -1,14 +1,19 @@
+var App = new Mn.Application();
+
+
+App.on('start', function() {
+  var cats = new CatCollection([{name: "Fuzzy"}, {name: "Ash"}]);
+  var catsView = new CatCollectionView({collection: cats});
+  App.getRegion('main').show(catsView);
+});
+
+
 (function($){
-  var clickCounter = new Backbone.Model({ count: 0 });
 
   $(function(){
-    var arg = {
-      model: clickCounter
-    };
-    var catView = new CatView(arg);
-    catView.render();
-
-    var countView = new CountView(arg);
-    countView.render();
+    App.addRegions({
+      main: "#cats",
+    });
+    App.start();
   });
 })(jQuery);

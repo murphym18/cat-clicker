@@ -1,21 +1,23 @@
-window.CatView = Backbone.View.extend({
-  el: '#cat',
-  image: 'images/cat.jpg',
-  style: 'center-block img-rounded',
-  template: "<img src='<% print(image) %>' class='<% print(style) %>'  alt='cat'></img>",
-  events: {
-    "click": "increment",
-  },
+(function(app){
+  app.CatView = Marionette.ItemView.extend({
+    template: "#cat-template",
+    triggers: {
+      "click img": "increment"
+    },
+    modelEvents: {
+      "change": "onShow"
+    },
+    initialize: function() {
+      this.onIncrement = this.model.increment.bind(this.model);
+    },
+    onShow: function() {
+      this.$('.count').text(this.model.get('count'));
+      this.$('h4').text(this.model.get('name'));
+    },
 
-  initialize: function() {
-    this.template = _.template(this.template);
-  },
+  });
 
-  render: function() {
-    this.$el.html(this.template(this));
-  },
-
-  increment: function() {
-    this.model.set('count', this.model.get('count') + 1)
-  }
-});
+  app.CatCollectionView = Marionette.CollectionView.extend({
+    childView: CatView
+  });
+})(window);
