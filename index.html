@@ -17,18 +17,14 @@
         <script src="js/cat-view.js"></script>
         <script src="js/app.js"></script>
         <script id="cat-template" type="text/plain">
-          <div class=" col-xs-6 col-sm-4 col-md-4">
-          <div class="panel panel-primary ">
+          <div class="panel panel-default ">
             <div class="panel-heading text-center"><h4><% print(name) %></h4></div>
-            <div class="panel-body">
+            <div class="panel-body ">
               <img src="<% print(image) %>"
                    alt="A cat named <% print(name) %>"
-                   class="img-responsive thumbnail">
+                   class="img-responsive thumbnail center-block">
               </img>
-              <div class="text-center count "></div>
-            </div>
-
-
+              <div class="text-center count lead"></div>
             </div>
           </div>
         </script>
@@ -42,11 +38,14 @@
         <div class="container">
           <div class="row">
             <div class="col-xs-12">
-              <h1 class="page-header text-center">Cat Clicker</h1>
+              <h1 class="page-header ">Cat Clicker</h1>
             </div>
           </div>
 
-          <div id="cats" class="row"></div>
+          <div class="row">
+            <div class="col-sm-3" id="list"></div>
+            <div class="col-sm-9" id="main"></div>
+          </div>
         </div>
     </body>
 </html>
