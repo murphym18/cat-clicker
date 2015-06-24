@@ -22,12 +22,9 @@ $(function(){
     start: function() {
       this.select(Math.floor(Math.random() * models.length));
     },
-    copyCat: function(cat) {
-      return JSON.parse(JSON.stringify(cat));
-    },
 
     getCats: function() {
-      return models.map(this.copyCat);
+      return models;
     },
 
     select: function(id) {
@@ -43,7 +40,7 @@ $(function(){
     },
 
     getSelected: function() {
-      return this.copyCat(models[this.findSelectedIndex()]);
+      return models[this.findSelectedIndex()];
     },
 
     incrementSelected: function() {
