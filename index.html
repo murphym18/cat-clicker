@@ -1,51 +1,23 @@
 <!doctype html>
-<html class="no-js" lang="">
+<html>
     <head>
         <meta charset="utf-8">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Cat Clicker</title>
-        <meta name="description" content="cat clicker">
+        <title>Cat Clicker Premium</title>
+        <meta name="description" content="cat clicker premium">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <link rel="stylesheet" href="lib/css/bootstrap.css">
-
-        <script src="lib/js/jquery.js"></script>
-        <script src="lib/js/underscore.js"></script>
-        <script src="lib/js/backbone.js"></script>
-        <script src="lib/js/backbone.marionette.js"></script>
-        <script src="js/cat.js"></script>
-        <script src="js/cat-view.js"></script>
-        <script src="js/app.js"></script>
-        <script id="cat-template" type="text/plain">
-          <div class="panel panel-default ">
-            <div class="panel-heading text-center"><h4><% print(name) %></h4></div>
-            <div class="panel-body ">
-              <img src="<% print(image) %>"
-                   alt="A cat named <% print(name) %>"
-                   class="img-responsive thumbnail center-block">
-              </img>
-              <div class="text-center count lead"></div>
-            </div>
-          </div>
-        </script>
+        <script src="jquery.js"></script>
+        <link rel="stylesheet" href="style.css" />
     </head>
     <body>
-        <!--[if lt IE 8]>
-            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
-
-        <!-- Add your site or application content here -->
-        <div class="container">
-          <div class="row">
-            <div class="col-xs-12">
-              <h1 class="page-header ">Cat Clicker</h1>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-sm-3" id="list"></div>
-            <div class="col-sm-9" id="main"></div>
-          </div>
-        </div>
+      <div>
+      <head>
+        <h1>Cat Clicker Premium</h1>
+      </head>
+      <main>
+        <div id="list"></div>
+        <div id="cat"></div>
+      </main>
+      <script src="app.js"></script>
+    </div>
     </body>
 </html>
