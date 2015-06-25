@@ -79,3 +79,7 @@ body {
 #admin.active > form {
   visibility: visible;
 }
+
+input {
+  margin: 3px;
+}
